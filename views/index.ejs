@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="bootstrap.min.css">
+    
+    <link rel="stylesheet" href="style.css">
+    <title>Транспортная задача</title>
+  </head>
+  <body>
+    <div id="app" class="container">
+      <h1 align="center">
+        Решение транспортной задачи
+      </h1>
+      <div class="main-form">
+        <div class="form-group">
+          <label for="rowsCount">Количество строк (Запасы)</label>
+          <input class="form-control" v-model="rowsCount" type="number" value="3">
+        </div>
+        <div class="form-group">
+          <label for="cloumnsCount">Количество столбцов (Потребности)</label>
+          <input class="form-control" v-model="cloumnsCount" type="number" value="4">
+        </div>
+        <button class="btn btn-primary" @click="createTable()">Создать таблицу</button>
+        <button class="btn btn-primary" @click="solveTask()">Решить задачу</button>
+        <br>
+        <br>
+        <div>
+          <a href="how_to_transport.pdf" target="_blank">Как пользоваться программой?</a>
+        </div>
+      </div>
+      <br>
+      <div style="overflow:scroll;" v-if="showTable">
+        <table class="table table-bordered transport-table">
+          <thead class="transport-table-head">
+            <th></th>
+            <th v-for="col in cloumnsCount" :key="col">
+              B{{col}}
+            </th>
+            <th>Запасы</th>
+          </thead>
+          <tbody class="transport-table-body">
+            <tr v-for="(row, i) in rowsCount" :key="row">
+              <th>
+                A{{row}}
+              </th>
+              <td v-for="(col, j) in cloumnsCount" :key="col">
+                <input 
+                  class="form-control" 
+                  type="number" 
+                  v-model="tarifs[i][j]">
+              </td>
+              <td>
+                <input class="form-control" type="number" v-model="origins[row-1]">
+              </td>
+            </tr>
+            <tr>
+              <th>
+                Потребности
+              </th>
+              <td v-for="col in cloumnsCount" :key="col">
+                <input class="form-control" type="number" v-model="consumers[col-1]">
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <br>
+
+      <div style="overflow:scroll;" 
+        v-for="({ table, comment }, i) in dataTables"
+        :key="i">
+        <div class="comment">
+          <br>
+          <span v-html="comment"></span>
+        </div>
+        <table 
+          class="table table-bordered transport-table">
+          <thead class="transport-table-head">
+            <th></th>
+            <th v-for="(col, j) in table[0]" :key="j">
+              B{{j+1}}
+            </th>
+          </thead>
+          <tbody class="transport-table-body">
+            <tr v-for="(row, k) in table" :key="k" >
+              <th>
+                A{{k+1}}
+              </th>
+              <td v-for="(sup, j) in table[k]" :key="j" >
+                <span class="tarifCost">
+                  {{tarifs[k][j]}}
+                </span>
+
+                <span class="supply">
+                  {{sup !== null ? sup : '-'}}
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    
+    <script src="dist/bundle.js"></script>
+  </body>
+</html>

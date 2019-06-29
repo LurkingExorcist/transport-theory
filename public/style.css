@@ -1,0 +1,44 @@
+.main-form {
+  width: 50%;
+}
+
+.btn {
+  padding: 4px;
+}
+
+.form-group {
+  width: 50%;
+}
+
+.form-control {
+  min-width: 52px;
+}
+
+.tarifCost {
+  font-size: 12px;
+}
+
+.supply {
+  float: right;
+  font-size: 18px;
+}
+
+.deltaJ {
+  float: right;
+  font-size: 18px;
+}
+
+.deltaI {
+  float: right;
+  font-size: 18px;
+}
+
+.non-opt {
+  color: red;
+  font-size: 24px;
+}
+
+.opt {
+  color: blue;
+  font-size: 24px;
+}
